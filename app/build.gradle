@@ -16,6 +16,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "CLOUDINARY_URL", project.property('CLOUDINARY_URL')
+            resValue "string", "GOOGLE_MAPS_API_KEY", project.property('GOOGLE_MAPS_API_KEY')
+        }
+
+        debug {
+            resValue "string", "CLOUDINARY_URL", project.property('CLOUDINARY_URL')
+            resValue "string", "GOOGLE_MAPS_API_KEY", project.property('GOOGLE_MAPS_API_KEY')
         }
     }
 }
@@ -23,19 +30,20 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+
+
+    apt 'com.google.dagger:dagger-compiler:2.0.1'
+
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-
     compile 'com.google.android.gms:play-services-location:8.4.0'
-
+    compile 'com.firebase:firebase-client-android:2.5.0'
     compile 'com.cloudinary:cloudinary-android:1.1.2'
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'de.greenrobot:eventbus:2.4.0'
-
-    apt 'com.google.dagger:dagger-compiler:2.0.1'
     compile 'javax.annotation:jsr250-api:1.0'
     compile 'com.google.dagger:dagger:2.0.1'
-
+    compile 'com.android.support:support-v4:23.1.1'
 }
