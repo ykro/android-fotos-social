@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">PhotoShare</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main.title.list">Fotos</string>
+    <string name="main.title.map">Mapa</string>
+    <string name="main.notice">Fotografía publicada exitosamente</string>
+    <string name="main.error.dispatch.camera">Error al crear archivo</string>
+    <string name="main.menu.action.logout">Cerrar sesión</string>
+    <string name="login.message.email">Correo electrónico</string>
+    <string name="login.message.password">Contraseña</string>
+    <string name="login.message.signin">Iniciar sesión</string>
+    <string name="login.message.signup">Crear cuenta</string>
+    <string name="login.notice.message.useradded">Usuario registrado exitosamente</string>
+    <string name="login.error.message.signin">Imposible iniciar sesión %s</string>
+    <string name="login.error.message.signup">Imposible registrar nuevo usuario %s</string>
 </resources>
