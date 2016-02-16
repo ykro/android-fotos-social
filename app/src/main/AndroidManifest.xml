@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.galileo.android.photoshare">
+    package="edu.galileo.android.photofeed">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,7 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".PhotoShareApp"
+        android:name="edu.galileo.android.photofeed.PhotoShareApp"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
@@ -24,7 +24,7 @@
             android:name="CLOUDINARY_URL"
             android:value="@string/CLOUDINARY_URL"/>
         <activity
-            android:name=".login.ui.LoginActivity"
+            android:name="edu.galileo.android.photofeed.login.ui.LoginActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".main.ui.MainActivity"
+            android:name="edu.galileo.android.photofeed.main.ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

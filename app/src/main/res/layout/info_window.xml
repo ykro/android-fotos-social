@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/appbar_padding_top">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/layoutHeader"
-        android:layout_marginBottom="@dimen/appbar_padding_top"
         android:layout_alignParentTop="true">
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imgAvatar"
-            android:layout_width="@dimen/avatar_size_list"
-            android:layout_height="@dimen/avatar_size_list"
+            android:layout_width="@dimen/avatar_size_marker"
+            android:layout_height="@dimen/avatar_size_marker"
             android:layout_marginRight="@dimen/appbar_padding_top"
             app:civ_border_width="1dp"
             app:civ_border_color="#FF000000"/>
@@ -39,24 +37,16 @@
         android:id="@+id/imgMain"
         android:src="@mipmap/ic_launcher"
         android:layout_below="@+id/layoutHeader"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Text"
-        android:id="@+id/txtPlace"
-        android:layout_below="@+id/imgMain"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/layoutHeader"
+        android:layout_alignLeft="@+id/layoutHeader" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:src="@android:drawable/ic_menu_share"
         android:background="@android:color/transparent"
         android:id="@+id/imgShare"
-        android:layout_below="@+id/txtPlace"
+        android:layout_below="@+id/imgMain"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -67,7 +57,7 @@
         android:tint="@android:color/darker_gray"
         android:background="@android:color/transparent"
         android:id="@+id/imgDelete"
-        android:layout_below="@+id/txtPlace"
+        android:layout_below="@+id/imgMain"
         android:layout_toRightOf="@+id/imgShare"
         android:layout_toEndOf="@+id/imgShare" />
 
