@@ -3,12 +3,11 @@ package edu.galileo.android.photofeed.main.di;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.firebase.client.Firebase;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import edu.galileo.android.photofeed.domain.FirebaseAPI;
 import edu.galileo.android.photofeed.lib.base.EventBus;
 import edu.galileo.android.photofeed.lib.base.ImageStorage;
 import edu.galileo.android.photofeed.main.MainPresenter;
@@ -62,7 +61,7 @@ public class MainModule {
     }
 
     @Provides @Singleton
-    MainRepository providesMainRepository(EventBus eventBus, Firebase firebase, ImageStorage imageStorage) {
+    MainRepository providesMainRepository(EventBus eventBus, FirebaseAPI firebase, ImageStorage imageStorage) {
         return new MainRepositoryImpl(eventBus, firebase, imageStorage);
     }
 

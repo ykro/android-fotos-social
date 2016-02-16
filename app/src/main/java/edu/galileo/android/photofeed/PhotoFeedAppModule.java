@@ -13,11 +13,11 @@ import dagger.Provides;
  * Created by ykro.
  */
 @Module
-public class PhotoShareAppModule {
+public class PhotoFeedAppModule {
     Application application;
     private final static String SHARED_PREFERENCES_NAME = "UserPrefs";
 
-    public PhotoShareAppModule(Application application) {
+    public PhotoFeedAppModule(Application application) {
         this.application = application;
     }
 

@@ -1,19 +1,20 @@
-package edu.galileo.android.photofeed.photocontent;
+package edu.galileo.android.photofeed.photomap;
 
 import edu.galileo.android.photofeed.entities.Photo;
 import edu.galileo.android.photofeed.lib.base.EventBus;
-import edu.galileo.android.photofeed.photocontent.events.PhotoContentEvent;
-import edu.galileo.android.photofeed.photocontent.ui.PhotoContentView;
+import edu.galileo.android.photofeed.photolist.events.PhotoListEvent;
+import edu.galileo.android.photofeed.photomap.events.PhotoMapEvent;
+import edu.galileo.android.photofeed.photomap.ui.PhotoMapView;
 
 /**
  * Created by ykro.
  */
-public class PhotoContentPresenterImpl implements PhotoContentPresenter {
+public class PhotoMapPresenterImpl implements PhotoMapPresenter {
     EventBus eventBus;
-    PhotoContentView view;
-    PhotoContentInteractor interactor;
+    PhotoMapView view;
+    PhotoMapInteractor interactor;
 
-    public PhotoContentPresenterImpl(EventBus eventBus, PhotoContentView view, PhotoContentInteractor interactor) {
+    public PhotoMapPresenterImpl(EventBus eventBus, PhotoMapView view, PhotoMapInteractor interactor) {
         this.eventBus = eventBus;
         this.view = view;
         this.interactor = interactor;
@@ -41,20 +42,15 @@ public class PhotoContentPresenterImpl implements PhotoContentPresenter {
     }
 
     @Override
-    public void removePhoto(Photo photo) {
-        interactor.removePhoto(photo);
-    }
-
-    @Override
-    public void onEventMainThread(PhotoContentEvent event) {
+    public void onEventMainThread(PhotoMapEvent event) {
         if (this.view != null) {
             String error = event.getError();
             if (error != null) {
                 view.onPhotosError(error);
             } else {
-                if (event.getType() == PhotoContentEvent.READ_EVENT) {
+                if (event.getType() == PhotoListEvent.READ_EVENT) {
                     view.addPhoto(event.getPhoto());
-                } else if (event.getType() == PhotoContentEvent.DELETE_EVENT) {
+                } else if (event.getType() == PhotoListEvent.DELETE_EVENT) {
                     view.removePhoto(event.getPhoto());
                 }
             }

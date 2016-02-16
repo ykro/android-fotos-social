@@ -15,4 +15,7 @@
     <string name="login.error.message.signin">Imposible iniciar sesión %s</string>
     <string name="login.error.message.signup">Imposible registrar nuevo usuario %s</string>
     <string name="photolist.message.share">Compartir</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

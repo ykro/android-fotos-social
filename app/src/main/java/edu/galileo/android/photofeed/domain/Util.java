@@ -1,19 +1,16 @@
-package edu.galileo.android.photofeed.lib;
+package edu.galileo.android.photofeed.domain;
 
 import android.location.Address;
 import android.location.Geocoder;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
-
-import edu.galileo.android.photofeed.lib.base.BaseUtil;
 
 /**
  * Created by ykro.
  */
-public class Util implements BaseUtil {
+public class Util {
     private Geocoder geocoder;
     private final static String GRAVATAR_URL = "http://www.gravatar.com/avatar/";
 
@@ -21,24 +18,20 @@ public class Util implements BaseUtil {
         this.geocoder = geocoder;
     }
 
-    @Override
     public String getAvatarUrl(String username) {
         return GRAVATAR_URL + md5(username) + "?s=64";
     }
 
-    @Override
     public String getFromLocation(double lat, double lng) {
         String result = "";
         List<Address> addresses = null;
         try {
             addresses = geocoder.getFromLocation(lat, lng, 1);
             Address address = addresses.get(0);
-            ArrayList<String> addressFragments = new ArrayList<String>();
 
             for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                addressFragments.add(address.getAddressLine(i));
+                result += address.getAddressLine(i) + ", ";
             }
-            result = addressFragments.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }

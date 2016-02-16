@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.galileo.android.photofeed.PhotoShareApp;
+import edu.galileo.android.photofeed.PhotoFeedApp;
 import edu.galileo.android.photofeed.R;
 import edu.galileo.android.photofeed.login.LoginPresenter;
 import edu.galileo.android.photofeed.main.ui.MainActivity;
@@ -37,14 +37,14 @@ public class LoginActivity extends AppCompatActivity
     @Inject
     SharedPreferences sharedPreferences;
 
-    private PhotoShareApp app;
+    private PhotoFeedApp app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        app = (PhotoShareApp) getApplication();
+        app = (PhotoFeedApp) getApplication();
 
         setupInjection();
         presenter.onCreate();

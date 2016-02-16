@@ -1,11 +1,10 @@
 package edu.galileo.android.photofeed.login.di;
 
-import com.firebase.client.Firebase;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import edu.galileo.android.photofeed.domain.FirebaseAPI;
 import edu.galileo.android.photofeed.lib.base.EventBus;
 import edu.galileo.android.photofeed.login.LoginInteractor;
 import edu.galileo.android.photofeed.login.LoginInteractorImpl;
@@ -49,7 +48,7 @@ public class LoginModule {
     }
 
     @Provides @Singleton
-    LoginRepository providesLoginRepository(Firebase firebase, EventBus eventBus) {
+    LoginRepository providesLoginRepository(FirebaseAPI firebase, EventBus eventBus) {
         return new LoginRepositoryImpl(firebase, eventBus);
     }
 }

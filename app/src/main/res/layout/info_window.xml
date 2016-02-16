@@ -32,33 +32,12 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:id="@+id/imgMain"
         android:src="@mipmap/ic_launcher"
         android:layout_below="@+id/layoutHeader"
         android:layout_alignStart="@+id/layoutHeader"
         android:layout_alignLeft="@+id/layoutHeader" />
-
-    <ImageButton
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@android:drawable/ic_menu_share"
-        android:background="@android:color/transparent"
-        android:id="@+id/imgShare"
-        android:layout_below="@+id/imgMain"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_delete"
-        android:tint="@android:color/darker_gray"
-        android:background="@android:color/transparent"
-        android:id="@+id/imgDelete"
-        android:layout_below="@+id/imgMain"
-        android:layout_toRightOf="@+id/imgShare"
-        android:layout_toEndOf="@+id/imgShare" />
 
 </RelativeLayout>

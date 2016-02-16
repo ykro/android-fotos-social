@@ -2,11 +2,9 @@ package edu.galileo.android.photofeed.main;
 
 import android.location.Location;
 
-import com.firebase.client.Firebase;
-
 import java.io.File;
-import java.util.Map;
 
+import edu.galileo.android.photofeed.domain.FirebaseAPI;
 import edu.galileo.android.photofeed.entities.Photo;
 import edu.galileo.android.photofeed.lib.base.EventBus;
 import edu.galileo.android.photofeed.lib.base.ImageStorage;
@@ -18,10 +16,10 @@ import edu.galileo.android.photofeed.main.events.MainEvent;
  */
 public class MainRepositoryImpl implements MainRepository {
     private EventBus eventBus;
-    private Firebase firebase;
+    private FirebaseAPI firebase;
     private ImageStorage imageStorage;
 
-    public MainRepositoryImpl(EventBus eventBus, Firebase firebase, ImageStorage imageStorage) {
+    public MainRepositoryImpl(EventBus eventBus, FirebaseAPI firebase, ImageStorage imageStorage) {
         this.eventBus = eventBus;
         this.firebase = firebase;
         this.imageStorage = imageStorage;
@@ -29,23 +27,19 @@ public class MainRepositoryImpl implements MainRepository {
 
     @Override
     public void logout() {
-        firebase.unauth();
+        firebase.logout();
     }
 
     @Override
     public void uploadPhoto(Location location, String path) {
-        final Firebase firebasePhoto = firebase.push();
+        final String newPhotoId = firebase.create();
         final Photo photo = new Photo();
-
-        Map<String, Object> providerData = firebase.getAuth().getProviderData();
-        String email = providerData.get("email").toString();
-
-        photo.setEmail(email);
+        photo.setId(newPhotoId);
+        photo.setEmail(firebase.getAuthEmail());
         if (location != null) {
             photo.setLatitutde(location.getLatitude());
             photo.setLongitude(location.getLongitude());
         }
-        photo.setId(firebasePhoto.getKey());
 
         post(MainEvent.UPLOAD_INIT);
         imageStorage.upload(new File(path), photo.getId(), new ImageStorageFinishedListener(){
@@ -54,7 +48,7 @@ public class MainRepositoryImpl implements MainRepository {
             public void onSuccess() {
                 String url = imageStorage.getImageUrl(photo.getId());
                 photo.setUrl(url);
-                firebasePhoto.setValue(photo);
+                firebase.update(photo);
 
                 post(MainEvent.UPLOAD_COMPLETE);
             }

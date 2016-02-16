@@ -14,20 +14,20 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.galileo.android.photofeed.R;
+import edu.galileo.android.photofeed.domain.Util;
 import edu.galileo.android.photofeed.entities.Photo;
-import edu.galileo.android.photofeed.lib.base.BaseUtil;
 import edu.galileo.android.photofeed.lib.base.ImageLoader;
 
 /**
  * Created by ykro.
  */
 public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.ViewHolder> {
-    private BaseUtil utils;
+    private Util utils;
     private List<Photo> photoList;
     private ImageLoader imageLoader;
     private OnItemClickListener onItemClickListener;
 
-    public PhotoListAdapter(BaseUtil utils, List<Photo> photoList, ImageLoader imageLoader, OnItemClickListener onItemClickListener) {
+    public PhotoListAdapter(Util utils, List<Photo> photoList, ImageLoader imageLoader, OnItemClickListener onItemClickListener) {
         this.utils = utils;
         this.photoList = photoList;
         this.imageLoader = imageLoader;
@@ -71,7 +71,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.View
     }
 
     public void addPhoto(Photo photo) {
-        photoList.add(photo);
+        photoList.add(0, photo);
         notifyDataSetChanged();
     }
 

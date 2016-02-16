@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
@@ -23,22 +24,21 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import edu.galileo.android.photofeed.PhotoShareApp;
+import edu.galileo.android.photofeed.PhotoFeedApp;
 import edu.galileo.android.photofeed.R;
 import edu.galileo.android.photofeed.entities.Photo;
-import edu.galileo.android.photofeed.photocontent.PhotoContentPresenter;
-import edu.galileo.android.photofeed.photocontent.ui.PhotoContentView;
+import edu.galileo.android.photofeed.photolist.PhotoListPresenter;
 import edu.galileo.android.photofeed.photolist.ui.adapters.OnItemClickListener;
 import edu.galileo.android.photofeed.photolist.ui.adapters.PhotoListAdapter;
 
-public class PhotoListFragment extends Fragment implements PhotoContentView, OnItemClickListener {
+public class PhotoListFragment extends Fragment implements PhotoListView, OnItemClickListener {
     @Bind(R.id.container) RelativeLayout container;
     @Bind(R.id.recyclerView) RecyclerView recyclerView;
-
+    @Bind(R.id.progressBar) ProgressBar progressBar;
     @Inject
     PhotoListAdapter adapter;
     @Inject
-    PhotoContentPresenter presenter;
+    PhotoListPresenter presenter;
     
     public PhotoListFragment() {
     }
@@ -48,14 +48,13 @@ public class PhotoListFragment extends Fragment implements PhotoContentView, OnI
         super.onCreate(savedInstanceState);
         setupInjection();
         presenter.onCreate();
-        presenter.subscribe();
     }
 
     @Override
     public void onDestroy() {
+        presenter.unsubscribe();
         presenter.onDestroy();
         super.onDestroy();
-        presenter.unsubscribe();
     }
 
     private void setupRecyclerView() {
@@ -64,8 +63,8 @@ public class PhotoListFragment extends Fragment implements PhotoContentView, OnI
     }
 
     private void setupInjection() {
-        PhotoShareApp app = (PhotoShareApp) getActivity().getApplication();
-        app.getPhotoContentComponent(this, this, this).inject(this);
+        PhotoFeedApp app = (PhotoFeedApp) getActivity().getApplication();
+        app.getPhotoListComponent(this, this, this).inject(this);
     }
 
     @Override
@@ -74,6 +73,7 @@ public class PhotoListFragment extends Fragment implements PhotoContentView, OnI
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         ButterKnife.bind(this, view);
         setupRecyclerView();
+        presenter.subscribe();
         return view;
     }
 
@@ -83,9 +83,28 @@ public class PhotoListFragment extends Fragment implements PhotoContentView, OnI
     }
 
     @Override
+    public void showList() {
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideList() {
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
     public void addPhoto(Photo photo) {
         adapter.addPhoto(photo);
-        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
     }
 
     @Override

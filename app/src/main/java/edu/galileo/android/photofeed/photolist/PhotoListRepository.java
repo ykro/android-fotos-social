@@ -1,12 +1,12 @@
-package edu.galileo.android.photofeed.photocontent;
+package edu.galileo.android.photofeed.photolist;
 
 import edu.galileo.android.photofeed.entities.Photo;
 
 /**
  * Created by ykro.
  */
-public interface PhotoContentInteractor {
+public interface PhotoListRepository {
     void subscribe();
     void unsubscribe();
-    void removePhoto(Photo photo);
+    void remove(Photo photo);
 }

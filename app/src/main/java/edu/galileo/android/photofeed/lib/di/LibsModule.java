@@ -1,10 +1,7 @@
 package edu.galileo.android.photofeed.lib.di;
 
 import android.content.Context;
-import android.location.Geocoder;
 import android.support.v4.app.Fragment;
-
-import com.firebase.client.Firebase;
 
 import javax.inject.Singleton;
 
@@ -13,8 +10,6 @@ import dagger.Provides;
 import edu.galileo.android.photofeed.lib.CloudinaryImageStorage;
 import edu.galileo.android.photofeed.lib.GlideImageLoader;
 import edu.galileo.android.photofeed.lib.GreenRobotEventBus;
-import edu.galileo.android.photofeed.lib.Util;
-import edu.galileo.android.photofeed.lib.base.BaseUtil;
 import edu.galileo.android.photofeed.lib.base.EventBus;
 import edu.galileo.android.photofeed.lib.base.ImageLoader;
 import edu.galileo.android.photofeed.lib.base.ImageStorage;
@@ -25,12 +20,8 @@ import edu.galileo.android.photofeed.lib.base.ImageStorage;
 @Module
 public class LibsModule {
     private Fragment fragment;
-    private final static String FIREBASE_URL = "https://android-photo-share.firebaseio.com/";
 
-    public LibsModule() {
-    }
-
-    public LibsModule(Fragment fragment) {
+    public void setFragment(Fragment fragment) {
         this.fragment = fragment;
     }
 
@@ -55,24 +46,6 @@ public class LibsModule {
     ImageStorage providesImageStorage(Context context, EventBus eventBus) {
         ImageStorage imageStorage = new CloudinaryImageStorage(context, eventBus);
         return imageStorage;
-    }
-
-    @Provides
-    @Singleton
-    Firebase providesFirebase() {
-        return new Firebase(FIREBASE_URL);
-    }
-
-    @Provides
-    @Singleton
-    BaseUtil providesUtil(Geocoder geocoder) {
-        return new Util(geocoder);
-    }
-
-    @Provides
-    @Singleton
-    Geocoder providesGeocoder(Context context) {
-        return new Geocoder(context);
     }
 
     @Provides

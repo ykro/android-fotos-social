@@ -1,4 +1,4 @@
-package edu.galileo.android.photofeed.lib.di;
+package edu.galileo.android.photofeed.domain.di;
 
 import javax.inject.Singleton;
 
@@ -9,6 +9,6 @@ import edu.galileo.android.photofeed.PhotoFeedAppModule;
  * Created by ykro.
  */
 @Singleton
-@Component(modules = {LibsModule.class, PhotoFeedAppModule.class})
-public interface LibsComponent {
+@Component(modules = {DomainModule.class, PhotoFeedAppModule.class})
+public interface DomainComponent {
 }

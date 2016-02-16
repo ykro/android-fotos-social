@@ -1,15 +1,15 @@
-package edu.galileo.android.photofeed.photocontent;
+package edu.galileo.android.photofeed.photolist;
 
 import edu.galileo.android.photofeed.entities.Photo;
 
 /**
  * Created by ykro.
  */
-public class PhotoContentInteractorImpl implements PhotoContentInteractor {
+public class PhotoListInteractorImpl implements PhotoListInteractor {
 
-    PhotoContentRepository repository;
+    PhotoListRepository repository;
 
-    public PhotoContentInteractorImpl(PhotoContentRepository repository) {
+    public PhotoListInteractorImpl(PhotoListRepository repository) {
         this.repository = repository;
     }
 

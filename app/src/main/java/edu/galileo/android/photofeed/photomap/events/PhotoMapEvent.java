@@ -1,11 +1,11 @@
-package edu.galileo.android.photofeed.photocontent.events;
+package edu.galileo.android.photofeed.photomap.events;
 
 import edu.galileo.android.photofeed.entities.Photo;
 
 /**
  * Created by ykro.
  */
-public class PhotoContentEvent {
+public class PhotoMapEvent {
     private int type;
     private Photo photo;
     private String error;

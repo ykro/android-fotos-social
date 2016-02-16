@@ -1,11 +1,9 @@
 package edu.galileo.android.photofeed.login;
 
-import com.firebase.client.AuthData;
-import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
-import java.util.Map;
-
+import edu.galileo.android.photofeed.domain.FirebaseAPI;
+import edu.galileo.android.photofeed.domain.FirebaseActionListenerCallback;
 import edu.galileo.android.photofeed.lib.base.EventBus;
 import edu.galileo.android.photofeed.login.events.LoginEvent;
 
@@ -13,26 +11,26 @@ import edu.galileo.android.photofeed.login.events.LoginEvent;
  * Created by ykro.
  */
 public class LoginRepositoryImpl implements LoginRepository {
-    private Firebase firebase;
     private EventBus eventBus;
+    private FirebaseAPI firebase;
 
-    public LoginRepositoryImpl(Firebase firebase, EventBus eventBus) {
+    public LoginRepositoryImpl(FirebaseAPI firebase, EventBus eventBus) {
         this.firebase = firebase;
         this.eventBus = eventBus;
     }
 
     @Override
     public void signUp(final String email, final String password) {
-        firebase.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
+        firebase.signUp(email, password, new FirebaseActionListenerCallback() {
             @Override
-            public void onSuccess(Map<String, Object> result) {
+            public void onSuccess() {
                 post(LoginEvent.onSignUpSuccess);
                 signIn(email, password);
             }
 
             @Override
-            public void onError(FirebaseError firebaseError) {
-                post(LoginEvent.onSignUpError, firebaseError.getMessage());
+            public void onError(FirebaseError error) {
+                post(LoginEvent.onSignUpError, error.getMessage());
             }
         });
     }
@@ -40,33 +38,31 @@ public class LoginRepositoryImpl implements LoginRepository {
     @Override
     public void signIn(String email, String password) {
         if (email != null && password != null) {
-            firebase.authWithPassword(email, password, new Firebase.AuthResultHandler() {
+            firebase.login(email, password, new FirebaseActionListenerCallback() {
                 @Override
-                public void onAuthenticated(AuthData authData) {
-                    Map<String, Object> providerData = authData.getProviderData();
-                    String email = providerData.get("email").toString();
+                public void onSuccess() {
+                    String email = firebase.getAuthEmail();
                     post(LoginEvent.onSignInSuccess, null, email);
                 }
 
                 @Override
-                public void onAuthenticationError(FirebaseError firebaseError) {
-                    post(LoginEvent.onSignInError, firebaseError.getMessage());
+                public void onError(FirebaseError error) {
+                    post(LoginEvent.onSignInError, error.getMessage());
                 }
             });
         } else {
-            checkAlreadyAuthenticated();
-        }
-    }
+            firebase.checkForSession(new FirebaseActionListenerCallback() {
+                @Override
+                public void onSuccess() {
+                    String email = firebase.getAuthEmail();
+                    post(LoginEvent.onSignInSuccess, null, email);
+                }
 
-    public void checkAlreadyAuthenticated() {
-        AuthData authData = firebase.getAuth();
-        if (firebase.getAuth() != null) {
-            Map<String, Object> providerData = authData.getProviderData();
-            String email = providerData.get("email").toString();
-            post(LoginEvent.onSignInSuccess, null, email);
-
-        } else {
-            post(LoginEvent.onFailedToRecoverSession);
+                @Override
+                public void onError(FirebaseError error) {
+                    post(LoginEvent.onFailedToRecoverSession);
+                }
+            });
         }
     }
 

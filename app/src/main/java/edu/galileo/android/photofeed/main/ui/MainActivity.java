@@ -39,13 +39,13 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.galileo.android.photofeed.PhotoShareApp;
+import edu.galileo.android.photofeed.PhotoFeedApp;
 import edu.galileo.android.photofeed.R;
 import edu.galileo.android.photofeed.login.ui.LoginActivity;
 import edu.galileo.android.photofeed.main.MainPresenter;
 import edu.galileo.android.photofeed.main.ui.adapters.MainSectionsPagerAdapter;
 import edu.galileo.android.photofeed.photolist.ui.PhotoListFragment;
-import edu.galileo.android.photofeed.photomap.PhotoMapFragment;
+import edu.galileo.android.photofeed.photomap.ui.PhotoMapFragment;
 
 public class MainActivity extends AppCompatActivity implements MainView, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements MainView, GoogleA
     }
 
     private void setupNavigation() {
-        PhotoShareApp app = (PhotoShareApp) getApplication();
+        PhotoFeedApp app = (PhotoFeedApp) getApplication();
         String email = sharedPreferences.getString(app.getEmailKey(),"");
         toolbar.setTitle(email);
 
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements MainView, GoogleA
         Fragment[] fragments = new Fragment[]{ new PhotoListFragment(),
                                                new PhotoMapFragment()};
 
-        PhotoShareApp app = (PhotoShareApp) getApplication();
+        PhotoFeedApp app = (PhotoFeedApp) getApplication();
         app.getMainComponent(this, getSupportFragmentManager(), fragments, titles).inject(this);
     }
 
