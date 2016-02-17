@@ -1,12 +1,14 @@
 package edu.galileo.android.photofeed.photomap.ui;
 
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +54,7 @@ public class PhotoMapFragment extends Fragment implements PhotoMapView, OnMapRea
 
     private GoogleMap map;
     private HashMap<Marker, Photo> markers;
+    private static final int PERMISSIONS_REQUEST_LOCATION = 1;
 
     public PhotoMapFragment() {
     }
@@ -99,7 +102,27 @@ public class PhotoMapFragment extends Fragment implements PhotoMapView, OnMapRea
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         map.setInfoWindowAdapter(this);
-        map.setMyLocationEnabled(true);
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSIONS_REQUEST_LOCATION);
+        } else {
+            map.setMyLocationEnabled(true);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (map != null) {
+                        map.setMyLocationEnabled(true);
+                    }
+                }
+                return;
+            }
+        }
     }
 
     @Override
