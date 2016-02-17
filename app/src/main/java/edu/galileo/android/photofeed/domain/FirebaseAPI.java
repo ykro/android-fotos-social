@@ -5,6 +5,7 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import java.util.Map;
 
@@ -19,6 +20,23 @@ public class FirebaseAPI {
 
     public FirebaseAPI(Firebase firebase) {
         this.firebase = firebase;
+    }
+
+    public void checkForData(final FirebaseActionListenerCallback listener){
+        firebase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.getChildrenCount() > 0) {
+                    listener.onSuccess();
+                } else {
+                    listener.onError(null);
+                }
+            }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                listener.onError(firebaseError);
+            }
+        });
     }
 
     public void subscribe(final FirebaseEventListenerCallback listener) {

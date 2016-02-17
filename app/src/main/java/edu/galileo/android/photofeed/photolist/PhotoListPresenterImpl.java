@@ -12,6 +12,7 @@ public class PhotoListPresenterImpl implements PhotoListPresenter {
     EventBus eventBus;
     PhotoListView view;
     PhotoListInteractor interactor;
+    private final static String EMPTY_LIST = "Listado vacío";
 
     public PhotoListPresenterImpl(EventBus eventBus, PhotoListView view, PhotoListInteractor interactor) {
         this.eventBus = eventBus;
@@ -58,7 +59,11 @@ public class PhotoListPresenterImpl implements PhotoListPresenter {
             }
             String error = event.getError();
             if (error != null) {
-                view.onPhotosError(error);
+                if (error.isEmpty()) {
+                    view.onPhotosError(EMPTY_LIST);
+                } else {
+                    view.onPhotosError(error);
+                }
             } else {
                 if (event.getType() == PhotoListEvent.READ_EVENT) {
                     view.addPhoto(event.getPhoto());

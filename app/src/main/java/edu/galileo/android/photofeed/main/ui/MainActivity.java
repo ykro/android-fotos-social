@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -135,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements MainView, GoogleA
         PhotoFeedApp app = (PhotoFeedApp) getApplication();
         String email = sharedPreferences.getString(app.getEmailKey(),"");
         toolbar.setTitle(email);
-
         setSupportActionBar(toolbar);
+
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

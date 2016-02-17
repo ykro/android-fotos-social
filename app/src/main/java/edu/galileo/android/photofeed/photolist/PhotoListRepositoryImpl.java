@@ -24,6 +24,21 @@ public class PhotoListRepositoryImpl implements PhotoListRepository {
 
     @Override
     public void subscribe() {
+        firebase.checkForData(new FirebaseActionListenerCallback() {
+            @Override
+            public void onSuccess() {
+            }
+
+            @Override
+            public void onError(FirebaseError error) {
+                if (error != null) {
+                    post(PhotoListEvent.READ_EVENT, error.getMessage());
+                } else {
+                    post(PhotoListEvent.READ_EVENT, "");
+                }
+
+            }
+        });
         firebase.subscribe(new FirebaseEventListenerCallback() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot) {
@@ -47,7 +62,7 @@ public class PhotoListRepositoryImpl implements PhotoListRepository {
 
             @Override
             public void onCancelled(FirebaseError error) {
-                post(error.getMessage());
+                post(PhotoListEvent.READ_EVENT, error.getMessage());
             }
         });
     }
@@ -76,8 +91,8 @@ public class PhotoListRepositoryImpl implements PhotoListRepository {
         post(type, photo, null);
     }
 
-    private void post(String error){
-        post(0, null, error);
+    private void post(int type, String error){
+        post(type, null, error);
     }
 
     private void post(int type, Photo photo, String error){
