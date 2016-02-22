@@ -6,10 +6,10 @@ import edu.galileo.android.photofeed.lib.base.EventBus;
  * Created by ykro.
  */
 public class GreenRobotEventBus implements EventBus {
-    de.greenrobot.event.EventBus eventBus;
+    org.greenrobot.eventbus.EventBus eventBus;
 
     public GreenRobotEventBus(){
-        eventBus = de.greenrobot.event.EventBus.getDefault();
+        eventBus = org.greenrobot.eventbus.EventBus.getDefault();
     }
 
     public void register(Object subscriber){

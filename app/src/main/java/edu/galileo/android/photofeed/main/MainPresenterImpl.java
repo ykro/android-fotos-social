@@ -2,6 +2,8 @@ package edu.galileo.android.photofeed.main;
 
 import android.location.Location;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import edu.galileo.android.photofeed.lib.base.EventBus;
 import edu.galileo.android.photofeed.main.events.MainEvent;
 import edu.galileo.android.photofeed.main.ui.MainView;
@@ -39,6 +41,7 @@ public class MainPresenterImpl implements MainPresenter{
     }
 
     @Override
+    @Subscribe
     public void onEventMainThread(MainEvent event) {
         String error = event.getError();
         if (this.view != null) {

@@ -1,6 +1,8 @@
 package edu.galileo.android.photofeed.login;
 
 
+import org.greenrobot.eventbus.Subscribe;
+
 import edu.galileo.android.photofeed.lib.base.EventBus;
 import edu.galileo.android.photofeed.login.events.LoginEvent;
 import edu.galileo.android.photofeed.login.ui.LoginView;
@@ -52,6 +54,7 @@ public class LoginPresenterImpl implements LoginPresenter {
     }
 
     @Override
+    @Subscribe
     public void onEventMainThread(LoginEvent event) {
         switch (event.getEventType()) {
             case LoginEvent.onSignInError:

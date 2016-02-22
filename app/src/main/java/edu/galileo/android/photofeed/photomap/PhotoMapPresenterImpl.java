@@ -1,6 +1,7 @@
 package edu.galileo.android.photofeed.photomap;
 
-import edu.galileo.android.photofeed.entities.Photo;
+import org.greenrobot.eventbus.Subscribe;
+
 import edu.galileo.android.photofeed.lib.base.EventBus;
 import edu.galileo.android.photofeed.photolist.events.PhotoListEvent;
 import edu.galileo.android.photofeed.photomap.events.PhotoMapEvent;
@@ -42,6 +43,7 @@ public class PhotoMapPresenterImpl implements PhotoMapPresenter {
     }
 
     @Override
+    @Subscribe
     public void onEventMainThread(PhotoMapEvent event) {
         if (this.view != null) {
             String error = event.getError();

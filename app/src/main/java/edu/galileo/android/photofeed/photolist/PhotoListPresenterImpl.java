@@ -1,5 +1,7 @@
 package edu.galileo.android.photofeed.photolist;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import edu.galileo.android.photofeed.entities.Photo;
 import edu.galileo.android.photofeed.lib.base.EventBus;
 import edu.galileo.android.photofeed.photolist.events.PhotoListEvent;
@@ -51,6 +53,7 @@ public class PhotoListPresenterImpl implements PhotoListPresenter {
     }
 
     @Override
+    @Subscribe
     public void onEventMainThread(PhotoListEvent event) {
         if (this.view != null) {
             if (view != null){
