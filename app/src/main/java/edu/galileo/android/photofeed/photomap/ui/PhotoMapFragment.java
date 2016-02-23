@@ -87,7 +87,7 @@ public class PhotoMapFragment extends Fragment implements PhotoMapView, OnMapRea
 
     private void setupInjection() {
         PhotoFeedApp app = (PhotoFeedApp) getActivity().getApplication();
-        app.getPhotoMapComponent(this, this, null).inject(this);
+        app.getPhotoMapComponent(this, this).inject(this);
     }
 
     @Override

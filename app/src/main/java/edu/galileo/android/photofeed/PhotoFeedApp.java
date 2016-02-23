@@ -69,7 +69,7 @@ public class PhotoFeedApp extends Application {
 
     }
 
-    public PhotoMapComponent getPhotoMapComponent(Fragment fragment, PhotoMapView view, OnItemClickListener onItemClickListener) {
+    public PhotoMapComponent getPhotoMapComponent(Fragment fragment, PhotoMapView view) {
         libsModule.setFragment(fragment);
 
         return DaggerPhotoMapComponent
@@ -77,7 +77,7 @@ public class PhotoFeedApp extends Application {
                 .photoFeedAppModule(photoFeedAppModule)
                 .domainModule(domainModule)
                 .libsModule(libsModule)
-                .photoMapModule(new PhotoMapModule(view, onItemClickListener))
+                .photoMapModule(new PhotoMapModule(view))
                 .build();
 
     }

@@ -1,19 +1,11 @@
 package edu.galileo.android.photofeed.photomap.di;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import edu.galileo.android.photofeed.domain.FirebaseAPI;
-import edu.galileo.android.photofeed.domain.Util;
-import edu.galileo.android.photofeed.entities.Photo;
 import edu.galileo.android.photofeed.lib.base.EventBus;
-import edu.galileo.android.photofeed.lib.base.ImageLoader;
-import edu.galileo.android.photofeed.photolist.ui.adapters.OnItemClickListener;
-import edu.galileo.android.photofeed.photolist.ui.adapters.PhotoListAdapter;
 import edu.galileo.android.photofeed.photomap.PhotoMapInteractor;
 import edu.galileo.android.photofeed.photomap.PhotoMapInteractorImpl;
 import edu.galileo.android.photofeed.photomap.PhotoMapPresenter;
@@ -28,11 +20,9 @@ import edu.galileo.android.photofeed.photomap.ui.PhotoMapView;
 @Module
 public class PhotoMapModule {
     PhotoMapView view;
-    OnItemClickListener onItemClickListener;
 
-    public PhotoMapModule(PhotoMapView view, OnItemClickListener onItemClickListener) {
+    public PhotoMapModule(PhotoMapView view) {
         this.view = view;
-        this.onItemClickListener = onItemClickListener;
     }
 
     @Provides @Singleton
@@ -54,20 +44,4 @@ public class PhotoMapModule {
     PhotoMapRepository providesPhotoContentRepository(FirebaseAPI firebase, EventBus eventBus) {
         return new PhotoMapRepositoryImpl(firebase, eventBus);
     }
-
-    @Provides @Singleton
-    PhotoListAdapter providesPhotosAdapter(Util utils, List<Photo> photoList, ImageLoader imageLoader, OnItemClickListener onItemClickListener) {
-        return new PhotoListAdapter(utils, photoList, imageLoader, onItemClickListener);
-    }
-
-    @Provides @Singleton
-    OnItemClickListener providesOnItemClickListener() {
-        return this.onItemClickListener;
-    }
-
-    @Provides @Singleton
-    List<Photo> providesPhotosList() {
-        return new ArrayList<Photo>();
-    }
-
 }
