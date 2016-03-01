@@ -34,7 +34,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
-    //compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
 
     apt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
     compile "javax.annotation:jsr250-api:$rootProject.ext.jsr250Version"

@@ -155,8 +155,6 @@ public class MainActivity extends AppCompatActivity implements MainView, GoogleA
 
     @OnClick(R.id.fab)
     public void takePicture() {
-        Context context = getApplicationContext();
-
         Intent chooserIntent = null;
 
         List<Intent> intentList = new ArrayList<>();
@@ -170,25 +168,25 @@ public class MainActivity extends AppCompatActivity implements MainView, GoogleA
         if (photoFile != null) {
             takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
             if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {
-                intentList = addIntentsToList(context, intentList, takePhotoIntent);
+                intentList = addIntentsToList(intentList, takePhotoIntent);
             }
         }
 
         if (pickIntent.resolveActivity(getPackageManager()) != null) {
-            intentList = addIntentsToList(context, intentList, pickIntent);
+            intentList = addIntentsToList(intentList, pickIntent);
         }
 
         if (intentList.size() > 0) {
             chooserIntent = Intent.createChooser(intentList.remove(intentList.size() - 1),
-                    context.getString(R.string.main_message_picture_source));
+                    getString(R.string.main_message_picture_source));
                     chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[]{}));
         }
 
         startActivityForResult(chooserIntent, REQUEST_PICTURE);
     }
 
-    private List<Intent> addIntentsToList(Context context, List<Intent> list, Intent intent) {
-        List<ResolveInfo> resInfo = context.getPackageManager().queryIntentActivities(intent, 0);
+    private List<Intent> addIntentsToList(List<Intent> list, Intent intent) {
+        List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(intent, 0);
         for (ResolveInfo resolveInfo : resInfo) {
             String packageName = resolveInfo.activityInfo.packageName;
             Intent targetedIntent = new Intent(intent);
